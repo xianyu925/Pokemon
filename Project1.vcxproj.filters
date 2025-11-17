@@ -184,4 +184,7 @@
       <Filter>res\BGM</Filter>
     </Media>
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+  </ItemGroup>
 </Project>

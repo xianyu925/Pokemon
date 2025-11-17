@@ -187,6 +187,9 @@
     <Media Include="BGM\exaid_bgm.mp3" />
     <Media Include="BGM\hit.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
