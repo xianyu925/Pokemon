@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="res\IMAGE">
+      <UniqueIdentifier>{5416cd08-fa8b-4e29-8fb3-9c8fad09a5d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\BGM">
+      <UniqueIdentifier>{28261316-7e7f-4ffa-8afd-50664f7e6e45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Buttons.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Buttons.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\boss_hovered.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\boss_id.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\boss_pushed.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\build_hovered.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\build_pushed.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\enemy_0.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\build_id.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\enemy_1.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\enemy_2.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\enemy_3.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\enemy_4.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\enemy_5.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\enemy_boss.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\free_id.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\free_pushed.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\free_hovered.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\mainscene.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\mainscene_boss.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\menu.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\obstacle.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\player_left.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\obstacle_boss.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\player_right.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\player_two_left.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\player_two_right.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\red.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\Reset_hovered.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\Reset_id.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\ui_quit_idle.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\ui_quit_hovered.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\Reset_pushed.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\ui_quit_pushed.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\ui_start_hovered.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\ui_start_idle.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\ui_start_pushed.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+    <Image Include="images\yuanshi.png">
+      <Filter>res\IMAGE</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="BGM\bgm.mp3">
+      <Filter>res\BGM</Filter>
+    </Media>
+    <Media Include="BGM\exaid_bgm.mp3">
+      <Filter>res\BGM</Filter>
+    </Media>
+    <Media Include="BGM\hit.wav">
+      <Filter>res\BGM</Filter>
+    </Media>
+  </ItemGroup>
+</Project>
