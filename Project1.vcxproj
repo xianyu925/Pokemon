@@ -132,6 +132,7 @@
     <ClCompile Include="Buttons.cpp" />
     <ClCompile Include="Entities.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="EntityBase.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UI.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Buttons.h" />
     <ClInclude Include="Entities.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="EntityBase.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="UI.h" />
   </ItemGroup>

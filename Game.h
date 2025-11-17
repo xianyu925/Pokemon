@@ -49,13 +49,14 @@ private:
 
     // 场景实体（用智能指针管理生命周期）
     std::vector<std::unique_ptr<Obstacle>> obstacle_list;
-    std::vector<std::unique_ptr<Enemy>> enemy_list;
+    std::vector<std::unique_ptr<EnemyBase>> enemy_list;
     std::vector<std::unique_ptr<dropping>> drop_list;
 
     // 子弹（值类型，不需要指针）
     std::vector<Bullet> bullet_list;
-    std::vector<Bullet_line> bullet_line_list;
-    std::vector<Bullet_line_boss> bullet_line_boss_list;
+    // 弹线使用多态容器
+    std::vector<std::unique_ptr<Weapon>> bullet_line_list;
+    std::vector<std::unique_ptr<Weapon>> bullet_line_boss_list;
 
     // 所有按钮统一放在一个容器里（智能指针）
 	std::vector<std::unique_ptr<Button>> buttons;

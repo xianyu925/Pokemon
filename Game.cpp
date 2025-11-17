@@ -203,26 +203,22 @@ void Game::UpdateBulletsOrbit()
 
 void Game::UpdateBulletsLine()
 {
+    // 使用多态：由 Weapon::Update() 负责移动，IsOutOfBounds() 判断越界
     for (auto it = bullet_line_list.begin(); it != bullet_line_list.end(); )
     {
-        if (it->position.x < 0 || it->position.x >= WINDOW_WIDTH ||
-            it->position.y < 0 || it->position.y >= WINDOW_HEIGHT)
-        {
+        Weapon* w = it->get();
+        w->Update();
+        if (w->IsOutOfBounds())
             it = bullet_line_list.erase(it);
-        }
         else
-        {
-            it->position.x += static_cast<int>(8 * cos(it->angle));
-            it->position.y += static_cast<int>(8 * sin(it->angle));
             ++it;
-        }
     }
 
     if (g_state.timerLine >= 40)
     {
         int count = 4 + player.GetLevel() / 2;
         for (int i = 0; i < count; ++i)
-            bullet_line_list.emplace_back(count, i, player.GetPosition());
+            bullet_line_list.push_back(std::make_unique<Bullet_line>(count, i, player.GetPosition()));
         g_state.timerLine = 0;
     }
     else
@@ -231,20 +227,14 @@ void Game::UpdateBulletsLine()
 
 void Game::UpdateBulletsLineBoss()
 {
-    // 移动现有 Boss 子弹
     for (auto it = bullet_line_boss_list.begin(); it != bullet_line_boss_list.end(); )
     {
-        if (it->position.x < 0 || it->position.x >= WINDOW_WIDTH ||
-            it->position.y < 0 || it->position.y >= WINDOW_HEIGHT)
-        {
+        Weapon* w = it->get();
+        w->Update();
+        if (w->IsOutOfBounds())
             it = bullet_line_boss_list.erase(it);
-        }
         else
-        {
-            it->position.x += static_cast<int>(8 * cos(it->angle));
-            it->position.y += static_cast<int>(8 * sin(it->angle));
             ++it;
-        }
     }
 
     // 0.5s 生成一波 Boss 子弹
@@ -252,7 +242,7 @@ void Game::UpdateBulletsLineBoss()
     {
         int boss_bullet_count = rand() % 4 + 1;
         for (int i = 0; i < boss_bullet_count; ++i)
-            bullet_line_boss_list.emplace_back(boss_bullet_count, i, boss.GetPosition());
+            bullet_line_boss_list.push_back(std::make_unique<Bullet_line_boss>(boss_bullet_count, i, boss.GetPosition()));
         g_state.timerLineBoss = 0;
     }
     else
@@ -262,12 +252,13 @@ void Game::UpdateBulletsLineBoss()
 bool Game::CheckBossHitPlayer() const
 {
     POINT pos = player.GetPosition();
-    for (const auto& b : bullet_line_boss_list)
+    for (const auto& wptr : bullet_line_boss_list)
     {
-        bool x = b.position.x >= pos.x &&
-            b.position.x <= pos.x + Player::FRAME_WIDTH;
-        bool y = b.position.y >= pos.y &&
-            b.position.y <= pos.y + Player::FRAME_HEIGHT;
+        POINT p = wptr->GetPosition();
+        bool x = p.x >= pos.x &&
+            p.x <= pos.x + Player::FRAME_WIDTH;
+        bool y = p.y >= pos.y &&
+            p.y <= pos.y + Player::FRAME_HEIGHT;
         if (x && y) return true;
     }
     return false;
@@ -341,7 +332,7 @@ void Game::UpdateLogic()
     for (auto& e : enemy_list)
         e->Move(player);
 
-    // 敌人与玩家碰撞
+    // 敌人与玩家碰撞（使用 EnemyBase 的虚函数）
     for (auto& e : enemy_list)
     {
         if (e->CheckPlayerCollision(player))
@@ -378,9 +369,9 @@ void Game::UpdateLogic()
         }
         else if (g_state.choice == 2)
         {
-            for (const Bullet_line& b : bullet_line_list)
+            for (const auto& wptr : bullet_line_list)
             {
-                if (boss.CheckBulletLineCollision(b))
+                if (boss.CheckBulletLineCollision(*wptr))
                 {
                     if (!boss.wudi)
                         mciSendString(_T("play hit from 0"), NULL, 0, NULL);
@@ -425,9 +416,9 @@ void Game::UpdateLogic()
         }
         else if (g_state.choice == 2)
         {
-            for (const Bullet_line& b : bullet_line_list)
+            for (const auto& wptr : bullet_line_list)
             {
-                if (e->CheckBulletLineCollision(b))
+                if (e->CheckBulletLineCollision(*wptr))
                 {
                     mciSendString(_T("play hit from 0"), NULL, 0, NULL);
                     e->Hurt();
@@ -500,12 +491,12 @@ void Game::Render()
                 b.Draw();
 
         if (g_state.choice == 2)
-            for (const Bullet_line& b : bullet_line_list)
-                b.Draw();
+            for (const auto& wptr : bullet_line_list)
+                wptr->Draw();
 
         if (g_state.isBoss)
-            for (const Bullet_line_boss& b : bullet_line_boss_list)
-                b.Draw();
+            for (const auto& wptr : bullet_line_boss_list)
+                wptr->Draw();
 
         if (g_state.isBoss)
             boss.Draw(1000 / 144);

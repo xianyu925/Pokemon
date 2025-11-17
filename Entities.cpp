@@ -1,5 +1,7 @@
 #include "Entities.h"
+#include "Core.h"
 #include <algorithm>
+#include <cmath>
 
 // ===== Obstacle =====
 Obstacle::Obstacle(bool isBoss, int pos_x, int pos_y) : anim(nullptr)
@@ -240,6 +242,7 @@ void Bullet::Draw() const
     fillcircle(position.x, position.y, RADIUS);
 }
 
+// ===== Weapon implementations (Bullet_line / Bullet_line_boss) =====
 Bullet_line::Bullet_line(int count, int idx, POINT pos)
 {
     bullet_count = count;
@@ -254,6 +257,18 @@ void Bullet_line::Draw() const
     setlinecolor(RGB(0, 0, 0));
     setfillcolor(RGB(0, 0, 0));
     fillcircle(position.x, position.y, RADIUS);
+}
+
+void Bullet_line::Update()
+{
+    position.x += static_cast<int>(SPEED * cos(angle));
+    position.y += static_cast<int>(SPEED * sin(angle));
+}
+
+bool Bullet_line::IsOutOfBounds() const
+{
+    return position.x < 0 || position.x >= WINDOW_WIDTH ||
+           position.y < 0 || position.y >= WINDOW_HEIGHT;
 }
 
 Bullet_line_boss::Bullet_line_boss(int count, int idx, POINT pos)
@@ -272,7 +287,19 @@ void Bullet_line_boss::Draw() const
     fillcircle(position.x, position.y, RADIUS);
 }
 
-// ===== Enemy =====
+void Bullet_line_boss::Update()
+{
+    position.x += static_cast<int>(SPEED * cos(angle));
+    position.y += static_cast<int>(SPEED * sin(angle));
+}
+
+bool Bullet_line_boss::IsOutOfBounds() const
+{
+    return position.x < 0 || position.x >= WINDOW_WIDTH ||
+           position.y < 0 || position.y >= WINDOW_HEIGHT;
+}
+
+// ===== Enemy (具体实现) =====
 Enemy::Enemy()
 {
     anim = new Animation(_T("images/enemy_%d.png"), 6, 45);
@@ -303,7 +330,7 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-    delete anim;
+    // EnemyBase 的析构负责删除 anim
 }
 
 void Enemy::Move(const Player& player)
@@ -345,13 +372,9 @@ bool Enemy::CheckBulletCollision(const Bullet& bullet) const
     return is_overlap_x && is_overlap_y;
 }
 
-bool Enemy::CheckBulletLineCollision(const Bullet_line& bullet) const
+bool Enemy::CheckBulletLineCollision(const Weapon& weapon) const
 {
-    bool is_overlap_x = bullet.position.x >= position.x &&
-        bullet.position.x <= position.x + FRAME_WIDTH;
-    bool is_overlap_y = bullet.position.y >= position.y &&
-        bullet.position.y <= position.y + FRAME_HEIGHT;
-    return is_overlap_x && is_overlap_y;
+    return EnemyBase::CheckBulletLineCollision(weapon);
 }
 
 bool Enemy::CheckPlayerCollision(const Player& player) const
@@ -375,7 +398,7 @@ EnemyBoss::EnemyBoss()
 
 EnemyBoss::~EnemyBoss()
 {
-    delete anim;
+    // EnemyBase 的析构负责删除 anim
 }
 
 void EnemyBoss::Move()
@@ -413,12 +436,14 @@ bool EnemyBoss::CheckBulletCollision(const Bullet& bullet) const
     return is_overlap_x && is_overlap_y;
 }
 
-bool EnemyBoss::CheckBulletLineCollision(const Bullet_line& bullet) const
+// 覆盖 Weapon 版本，使用 boss 自己的宽高
+bool EnemyBoss::CheckBulletLineCollision(const Weapon& weapon) const
 {
-    bool is_overlap_x = bullet.position.x >= position.x &&
-        bullet.position.x <= position.x + WIDTH;
-    bool is_overlap_y = bullet.position.y >= position.y &&
-        bullet.position.y <= position.y + HEIGHT;
+    POINT wp = weapon.GetPosition();
+    bool is_overlap_x = wp.x >= position.x &&
+        wp.x <= position.x + WIDTH;
+    bool is_overlap_y = wp.y >= position.y &&
+        wp.y <= position.y + HEIGHT;
     return is_overlap_x && is_overlap_y;
 }
 
